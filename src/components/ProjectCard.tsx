@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Heading, Text, Badge, Link, VStack, HStack, Icon } from '@chakra-ui/react'
+import { Box, Heading, Text, Badge, Link, VStack, HStack, Icon, useColorModeValue } from '@chakra-ui/react'
 import { StarIcon } from '@chakra-ui/icons'
 
 interface ProjectCardProps {
@@ -12,6 +12,13 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ name, description, language, stargazers_count, html_url }: ProjectCardProps) {
+    const bg = useColorModeValue('gruvbox.light.surface', 'gruvbox.dark.surface')
+    const borderColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.100')
+    const hoverBorderColor = useColorModeValue('gruvbox.light.primary', 'gruvbox.dark.primary')
+    const headingHoverColor = useColorModeValue('gruvbox.light.primary', 'gruvbox.dark.primary')
+    const textColor = useColorModeValue('gray.600', 'gray.400')
+    const statsColor = useColorModeValue('gray.600', 'gray.500')
+
     return (
         <Box
             as="a"
@@ -22,22 +29,22 @@ export default function ProjectCard({ name, description, language, stargazers_co
             borderRadius="xl"
             overflow="hidden"
             p={6}
-            bg="gruvbox.dark.surface"
-            borderColor="whiteAlpha.100"
+            bg={bg}
+            borderColor={borderColor}
             _hover={{
                 transform: 'translateY(-4px)',
                 shadow: 'xl',
-                borderColor: 'gruvbox.dark.primary',
+                borderColor: hoverBorderColor,
             }}
             transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
             position="relative"
             role="group"
         >
             <VStack align="start" spacing={4} height="100%">
-                <Heading size="md" _groupHover={{ color: 'gruvbox.dark.primary' }} transition="color 0.2s">
+                <Heading size="md" _groupHover={{ color: headingHoverColor }} transition="color 0.2s">
                     {name}
                 </Heading>
-                <Text noOfLines={2} color="gray.400" fontSize="sm" flex={1}>
+                <Text noOfLines={2} color={textColor} fontSize="sm" flex={1}>
                     {description}
                 </Text>
                 <HStack justify="space-between" w="full" pt={2}>
@@ -52,7 +59,7 @@ export default function ProjectCard({ name, description, language, stargazers_co
                     >
                         {language}
                     </Badge>
-                    <HStack spacing={1} color="gray.500">
+                    <HStack spacing={1} color={statsColor}>
                         <Icon as={StarIcon} color="yellow.500" boxSize={3} />
                         <Text fontSize="sm">{stargazers_count}</Text>
                     </HStack>
